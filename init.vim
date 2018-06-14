@@ -28,6 +28,9 @@ Plug 'rstacruz/vim-closer'
 Plug 'tomasr/molokai'
 Plug 'haya14busa/incsearch.vim'
 
+" finish loading plugins
+call plug#end()
+
 " various nvim preferences for common usage
 set title
 set number
@@ -90,6 +93,7 @@ if !exists("b:git_dir")
 else 
   nnoremap <silent> <C-z> :Gcd <CR> :edit term://zsh <CR>
 endif
+
 tnoremap <silent> <C-z> <C-\><C-n> :bd! <CR>
 tnoremap <silent> <Leader>z <C-\><C-n> <CR>
 autocmd TermOpen * startinsert
@@ -99,8 +103,7 @@ silent !mkdir ~/.config/nvim/backups > /dev/null 2>&1
 set undodir=~/.config/nvim/backups
 set undofile
 
-" Finish loading plugins
-call plug#end()
+
 
 " Set colorscheme last
 colorscheme molokai
