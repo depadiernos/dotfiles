@@ -27,6 +27,7 @@ Plug 'lilydjwg/colorizer'
 Plug 'rstacruz/vim-closer'
 Plug 'tomasr/molokai'
 Plug 'haya14busa/incsearch.vim'
+Plug 'terryma/vim-multiple-cursors'
 
 " finish loading plugins
 call plug#end()
