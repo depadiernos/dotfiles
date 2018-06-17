@@ -2,6 +2,13 @@
 "
 " :)
 
+" install vim-plug if it's not already installed
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " start vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -31,6 +38,12 @@ Plug 'terryma/vim-multiple-cursors'
 
 " finish loading plugins
 call plug#end()
+
+" automatically install plugins
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 " various nvim preferences for common usage
 set title
@@ -89,14 +102,23 @@ endif
 nnoremap <silent> <Leader>z :bd! <CR>
 
 " Terminal keymappings
+
+" check for git directory and change to it if it exists
+" then launch terminal, else cd into path of current file
+" then launch terminal
+
 if !exists("b:git_dir")
   nnoremap <silent> <C-z> :lcd %:p:h <CR> :edit term://zsh <CR>
 else 
   nnoremap <silent> <C-z> :Gcd <CR> :edit term://zsh <CR>
 endif
 
+" close terminal if in terminal mode
 tnoremap <silent> <C-z> <C-\><C-n> :bd! <CR>
+
+" exit terminal mode but leave terminal open
 tnoremap <silent> <Leader>z <C-\><C-n> <CR>
+
 autocmd TermOpen * startinsert
 
 " Persistent Undo
